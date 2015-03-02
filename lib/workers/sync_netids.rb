@@ -10,6 +10,8 @@ module Workers
     def perform
       new_ids_with_netids = ids_with_netids_from_ws - ids_with_netids_from_trogdir
 
+      Log.info "Found #{new_ids_with_netids.length} NetIDs not in Trogdir"
+
       new_ids_with_netids.each do |id|
         SyncNetID.perform_async(id)
       end

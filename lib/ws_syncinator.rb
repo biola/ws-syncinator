@@ -36,6 +36,7 @@ module WSSyncinator
 
     Weary::Adapter::NetHttpAdvanced.timeout = Settings.trogdir.api_timeout
 
+    require './lib/log'
     require './lib/workers'
 
     true
