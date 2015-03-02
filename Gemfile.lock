@@ -161,7 +161,7 @@ GEM
     trogdir_api_client (0.4.0)
       api-auth (~> 1.0)
       weary (~> 1.0)
-    trogdir_models (0.11.1)
+    trogdir_models (0.11.2)
       api-auth (~> 1.0)
       email_validator (~> 1.4)
       mongoid (~> 4.0)
