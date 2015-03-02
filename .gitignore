@@ -1,0 +1,6 @@
+.bundle
+/config/mongoid.yml
+/config/settings.local.yml
+/config/blazing.rb
+/vendor/bundle
+/tmp
