@@ -20,11 +20,11 @@ module Workers
     private
 
     def ids_with_netids_from_trogdir
-      @ids_with_netids_from_trogdir ||= Person.where('ids.type' => :netid).pluck(:ids).map{|ids| ids.find{|id| id['type'] == :biola_id }.try(:[], 'identifier')}.compact
+      Person.where('ids.type' => :netid).pluck(:ids).map{|ids| ids.find{|id| id['type'] == :biola_id }.try(:[], 'identifier')}.compact.map(&:to_i)
     end
 
     def ids_with_netids_from_ws
-      mysql.query('SELECT idnumber FROM netids WHERE netid IS NOT NULL;').each(as: :array).flatten
+      mysql.query('SELECT idnumber FROM netids WHERE idnumber > 0;').each(as: :array).flatten
     end
 
     def mysql
