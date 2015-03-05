@@ -1,6 +1,10 @@
 redis:
   url: "redis://redis1.staging.biola.edu:6379/0"
 
+ws:
+  mysql:
+    host: mysql1.staging.biola.edu
+
 trogdir:
   scheme: https
   host: api.staging.biola.edu
