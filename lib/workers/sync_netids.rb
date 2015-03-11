@@ -8,27 +8,32 @@ module Workers
     end
 
     def perform
-      new_ids_with_netids = ids_with_netids_from_ws - ids_with_netids_from_trogdir
+      ids = ids_to_sync
+      Log.info "Found #{ids.length} NetIDs not in Trogdir"
 
-      Log.info "Found #{new_ids_with_netids.length} NetIDs not in Trogdir"
-
-      new_ids_with_netids.each do |id|
+      ids.each do |id|
         SyncNetID.perform_async(id)
       end
     end
 
     private
 
-    def ids_with_netids_from_trogdir
-      Person.where('ids.type' => :netid).pluck(:ids).map{|ids| ids.find{|id| id['type'] == :biola_id }.try(:[], 'identifier')}.compact.map(&:to_i)
+    def trogdir_people_without_netids
+      with_netids = Person.where('ids.type' => :netid)
+      Person.where(:_id.nin => with_netids.pluck(:_id))
     end
 
-    def ids_with_netids_from_ws
-      mysql.query('SELECT idnumber FROM netids WHERE idnumber > 0;').each(as: :array).flatten
+    def ids_to_sync
+      ids = biola_ids_for(trogdir_people_without_netids)
+      mysql.query("SELECT idnumber FROM netids WHERE idnumber IN(#{ids.join(',')});").each(as: :array).flatten
     end
 
     def mysql
       Mysql2::Client.new(Settings.ws.mysql.to_hash)
+    end
+
+    def biola_ids_for(trogdir_people)
+      trogdir_people.pluck(:ids).compact.map{|ids| ids.find{|id| id['type'] == :biola_id }.try(:[], 'identifier')}.compact.map(&:to_i)
     end
   end
 end
