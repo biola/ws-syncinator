@@ -25,6 +25,8 @@ module Workers
 
     def ids_to_sync
       ids = biola_ids_for(trogdir_people_without_netids)
+      return [] if ids.empty?
+
       mysql.query("SELECT idnumber FROM netids WHERE idnumber IN(#{ids.join(',')});").each(as: :array).flatten
     end
 
