@@ -1,0 +1,8 @@
+ws:
+  mysql:
+    username: ws_syncinator
+    password: "*****************"
+
+trogdir:
+  access_id: 1234567890
+  secret_key: "***********************"
