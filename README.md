@@ -1,7 +1,7 @@
-Banner Syncinator
+WS Syncinator
 =================
 
-Banner Syncinator is a temporary tool to sync NetIDs from the legacy WS system into [trogdir-api](https://github.com/biola/trogdir-api).
+WS Syncinator is a temporary tool to sync NetIDs from the legacy WS system into [trogdir-api](https://github.com/biola/trogdir-api).
 Eventually, a new process will take over creating NetIDs, but until then this exists to keep WS and trogdir-api in sync.
 
 Requirements
