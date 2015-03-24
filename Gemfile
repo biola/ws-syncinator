@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'blazing'
-gem 'mail'
 gem 'mysql2'
 # beta1 fixes this issue https://github.com/railsconfig/rails_config/pull/86
 gem 'rails_config', '~> 0.5.0.beta1'
@@ -18,5 +17,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'exception_notification'
+  gem 'sentry-raven'
 end

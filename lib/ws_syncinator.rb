@@ -7,8 +7,10 @@ module WSSyncinator
 
     Mongoid.load! File.expand_path('../../config/mongoid.yml',  __FILE__)
 
-    Mail.defaults do
-      delivery_method Settings.email.delivery_method, Settings.email.options.to_hash
+    if defined? Raven
+      Raven.configure do |config|
+        config.dsn = Settings.sentry.url
+      end
     end
 
     Sidekiq.configure_server do |config|
@@ -17,11 +19,6 @@ module WSSyncinator
 
     Sidekiq.configure_client do |config|
       config.redis = { url: Settings.redis.url, namespace: 'ws-syncinator' }
-    end
-
-    if defined? ::ExceptionNotifier
-      require 'exception_notification/sidekiq'
-      ExceptionNotifier.register_exception_notifier(:email, Settings.exception_notification.options.to_hash)
     end
 
     TrogdirAPIClient.configure do |config|
