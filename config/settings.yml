@@ -4,17 +4,8 @@ redis:
 schedule:
   hour: 5
 
-# See http://rdoc.info/github/mikel/mail/Mail#defaults-class_method
-email:
-  delivery_method: test
-  options: {}
-
-exception_notification:
-  options:
-    email_prefix: "[ws-syncinator] "
-    sender_address: "no-reply@biola.edu"
-    exception_recipients:
-      - appdev@biola.edu
+sentry:
+  url: # Sentry URL goes here in settings.local.yml
 
 ws:
   mysql:

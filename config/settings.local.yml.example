@@ -3,6 +3,9 @@ ws:
     username: ws_syncinator
     password: "*****************"
 
+sentry:
+  url: # Sentry URL goes here in settings.local.yml
+
 trogdir:
   access_id: 1234567890
   secret_key: "***********************"
